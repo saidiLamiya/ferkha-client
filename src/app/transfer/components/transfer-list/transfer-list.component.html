@@ -1,0 +1,62 @@
+<app-header></app-header>
+<div class="background">
+  <mat-tab-group mat-align-tabs="end">
+    <mat-tab> 
+     
+      <div class="container">
+        <div class="content">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="debiteur">
+              <th mat-header-cell *matHeaderCellDef class="title">Debiteur</th>
+              <td class="font" mat-cell *matCellDef="let element">
+                {{ element.creancier.proprietaire.nom }}
+                {{ element.creancier.proprietaire.prenom }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="creancier">
+              <th mat-header-cell *matHeaderCellDef class="title">Creancier</th>
+              <td class="font" mat-cell *matCellDef="let element">
+                
+                {{ element.debiteur.proprietaire.nom }}
+                {{ element.debiteur.proprietaire.prenom}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="somme">
+              <th mat-header-cell *matHeaderCellDef class="title">Somme</th>
+              <td mat-cell *matCellDef="let element">
+                <span 
+                  class="addition"
+                  *ngIf="checkSender(element.debiteur.proprietaire.nom)"
+                >
+                  + {{ element.sommeEnv | number: "1.2-2" }}
+                  {{ element.debiteur.devise.code }}
+                </span>
+                <span
+                  class="soustraction"
+                  *ngIf="!checkSender(element.debiteur.proprietaire.nom)"
+                >
+                  - {{ element.sommeRecu | number: "1.2-2" }}
+                  {{ element.creancier.devise.code }}
+                </span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef class="title">Date</th>
+              <td class="font" mat-cell *matCellDef="let element">{{ element.date }}</td>
+            </ng-container>
+
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+
+         
+        </div>
+      </div>
+    </mat-tab>
+   
+  </mat-tab-group>
+</div>

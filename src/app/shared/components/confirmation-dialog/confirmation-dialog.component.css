@@ -1,0 +1,34 @@
+.whiteForm {
+    background-color: rgba(251, 251, 251, 0.616);
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+  h3{
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    color: #21252da2;
+
+  }
+  .icon{
+    color: #21252da2;
+    font-size: 25px;
+
+  }
+  
+.btn3{
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    
+  
+    width: 260px !important;
+    min-width: unset !important;
+    margin-top: 1rem;
+
+   
+    
+  
+  }
+  

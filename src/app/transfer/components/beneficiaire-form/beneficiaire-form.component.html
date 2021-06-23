@@ -1,0 +1,58 @@
+<app-header></app-header>
+<div  class="background">
+<div [formGroup]="transferForm">
+  <form [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <div class="whiteForm">
+        <mat-error *ngIf="loginInvalid">
+          Entrez un numero de compte valide.
+        </mat-error>
+        <mat-grid-list cols="2" rowHeight="6:1" [gutterSize]="'20px'">
+            <mat-grid-tile>
+                <mat-form-field class="formField">
+                  <mat-label class="title">Nom de bénéficiaire</mat-label>
+                  <input class="title"
+                    matInput
+                    type="text"
+                    formControlName="nom"
+                    placeholder="Nom"
+                  />
+                </mat-form-field>
+              </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="formField">
+              
+              <mat-label class="title">Numéro de compte</mat-label>
+              <input class="title"
+                matInput
+                type="text"
+                formControlName="numero"
+                placeholder="Numéro du compte"
+              />
+              
+              
+              
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <div fxFlex fxLayoutAlign="flex-end">
+                <button mat-raised-button color="primary" class="blueButton" type="submit" value="Valider" >
+                Valider
+              </button>
+            </div>
+          </mat-grid-tile>
+
+        </mat-grid-list>
+      </div>
+    </div>
+  </form>
+</div>
+  
+</div>
+
+
+<!--
+    [disabled]="!beneficiaireForm.valid"
+-->

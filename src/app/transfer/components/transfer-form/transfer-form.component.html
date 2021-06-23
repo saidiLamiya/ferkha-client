@@ -1,0 +1,254 @@
+<app-header></app-header>
+<div class="full-page">
+<div class="bottomBorder">
+  <div class="container">
+    <mat-grid-list cols="2" rowHeight="16:1">
+      <mat-grid-tile class="fullheight">
+        <div fxFlex fxLayoutAlign="start center">
+          <button mat-raised-button color="primary" routerLink="/compte/:id/ajouterBeneficiaire" class="btn">
+            Ajouter un bénéficiaire
+          </button>
+          
+        </div>
+      </mat-grid-tile>
+      
+    </mat-grid-list>
+  </div>
+</div>
+
+<div class="container">
+  <h2>
+    Choisir les Beneficiaires :
+  </h2>
+    <table id="table" >
+        <thead class="tables">
+            <tr><th>Id</th><th>Nom</th><th>Prénom</th><th>Numero deCompte</th><th>Actions</th><th>Supprimer</th></tr>
+        </thead>
+        <tbody>
+    <tr *ngFor="let row of BENEFICIAIRE" >
+        <td class="tables">{{row.id}}</td>
+        <td class="tables">{{row.nom}}</td>
+        <td class="tables">{{row.prenom}}</td>
+        <td class="tables">{{row.numeroCompte}} </td>
+        <td  class="tables"><mat-icon (click)="clickedRows.add(row)">credit_card</mat-icon><mat-icon (click)="clickedRows.delete(row)">block</mat-icon>
+        </td>
+        <td class="tables"><mat-icon (click)="delete(row.id)">delete_outline</mat-icon></td>
+        
+  
+    </tr>
+</tbody>
+</table>
+
+
+<!--  -->
+
+
+
+<div class="container2">
+  <h2>
+    Remplir les infos :
+  </h2>
+  <form [formGroup]="transferForm" (ngSubmit)="virementt()">
+  <div class="whiteForm">
+    <mat-error *ngIf="nombreInvalid" class="error1">
+      <mat-icon class="error1">notification_important</mat-icon>le nombre de bénéficiaires est différent au nombre de bénéficiaires selectionnés.
+    </mat-error>
+    <mat-error *ngIf="montantInvalid" class="error1">
+      <mat-icon class="error1">notification_important</mat-icon>le montant total doit etre égal à la somme des montants des bénéficiaires.
+    </mat-error>
+    <mat-grid-list cols="2" rowHeight="6:1" [gutterSize]="'20px'">
+        <mat-grid-tile>
+            <mat-form-field class="formField">
+              <mat-label class="title">Numéro de compte</mat-label>
+              <input class="title"
+                matInput
+                type="text"
+                formControlName="numero2"
+                placeholder="Nom"
+              />
+
+            
+            </mat-form-field>
+          </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="formField">
+          <mat-label class="title">Nombre de bénéficiaires</mat-label>
+          <input class="title"
+            matInput
+            type="text"
+            formControlName="nombre"
+            placeholder="Numéro du compte"
+          />
+          
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="formField">
+          <mat-label class="title">Montant Total</mat-label>
+          <input class="title"
+            matInput
+            type="text"
+            formControlName="montant2"
+            placeholder="montant2"
+          />
+          
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+      <div fxFlex fxLayoutAlign="flex-end">
+        <button mat-raised-button color="primary" class="blueButton" type="submit" value="Valider" class="btn1">
+        Valider 
+      </button>
+    </div>
+  </mat-grid-tile>
+
+    </mat-grid-list>
+  </div>
+</form>
+
+
+<div class="container1">
+  <h2>
+    Beneficiaires des Virements
+  </h2>
+  
+<form [formGroup]="beneficiaireForm" (ngSubmit)="addBene()">
+
+  <div class="whiteForm">
+    <div class="ajouter" *ngIf="!clickedRows.size">
+      Ajouter un Beneficiaires pour continuer !
+    </div>
+    <mat-grid-list cols="2" rowHeight="6:1" [gutterSize]="'20px'" *ngFor="let clickedRow of clickedRows">
+     
+      
+     
+        <mat-grid-tile>
+            <mat-form-field class="formField">
+              <mat-label class="title">{{clickedRow.numeroCompte}} </mat-label>
+              <input class="title"
+            matInput
+            type="text"
+            formControlName="numero1"
+            placeholder="numero1"
+            
+            readonly
+           
+          />
+             
+            </mat-form-field>
+          </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="formField">
+          <mat-label class="title">Montant</mat-label>
+          <input class="title"
+            matInput
+            type="text"
+            formControlName="montant1"
+            placeholder="montant1"
+          />
+          
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+    <mat-grid-list cols="2" rowHeight="6:1" [gutterSize]="'20px'" >
+      <mat-grid-tile>
+          
+        </mat-grid-tile>
+
+    <mat-grid-tile>
+      <div>
+        <button mat-raised-button color="primary" class="blueButton"  class="btn2" >
+        Passer au Virement
+      </button>
+      </div> 
+        
+      
+    </mat-grid-tile>
+
+  </mat-grid-list>
+  </div>
+</form>
+ 
+    
+
+<div class="container1">
+  <h2>
+    Reçu
+  </h2>
+  
+<form [formGroup]="beneForm" (ngSubmit)="openDialog()">
+
+  <div class="whiteForm">
+    <mat-error *ngIf="infoInvalid" class="error2">
+      <mat-icon class="error2">error</mat-icon>Infos invalid !
+    </mat-error>
+    <div class="ajouter" >
+      Ajouter des Beneficiaires 
+    </div>
+    
+    <mat-grid-list cols="5" rowHeight="6:1" [gutterSize]="'20px'" *ngFor="let vire of virements">
+     
+      <mat-grid-tile>
+      
+      </mat-grid-tile>
+     
+        <mat-grid-tile>
+            <mat-form-field class="formField">
+              <mat-label class="title">Creancier : {{vire.debiteur.numero}} </mat-label>
+              <input class="title"
+            matInput
+            type="text"
+            formControlName="debiteur"
+            placeholder="debiteur"
+            
+            readonly
+           
+          />
+             
+            </mat-form-field>
+          </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="margin">
+          <mat-label class="title">Montant : {{vire.sommeEnv}}</mat-label>
+          <input class="title"
+            matInput
+            type="text"
+            formControlName="som"
+            placeholder="som"
+          />
+          
+        </mat-form-field>
+
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-icon (click)="remove(vire)">delete_outline</mat-icon>
+        
+      </mat-grid-tile>
+      
+
+    </mat-grid-list>
+    <button mat-raised-button color="primary" class="blueButton"   class="btn3" >
+      Confirmer la transaction
+    </button>
+    
+    
+
+   
+
+ 
+  </div>
+</form>
+ 
+
+
+
+
+</div>  
+
+</div>
+

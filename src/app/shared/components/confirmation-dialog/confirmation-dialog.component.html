@@ -1,0 +1,22 @@
+<div class="whiteForm">
+<form [formGroup]="beneForm" (ngSubmit)="openDialog()">  
+  <mat-icon class="icon">warning</mat-icon>
+<h3>Entrez votre Password Pour continuer ! </h3>
+          <input class="title"
+            matInput
+            type="password"
+            formControlName="som"
+            
+            
+          />
+          <mat-error *ngIf="loginInvalid">
+            Username ou mot de passe non reconnu.
+          </mat-error>
+          <button mat-raised-button color="primary" class="blueButton" type="submit"  class="btn3" [routerLink]="['/virementEffectue']">
+            Valider
+          </button>
+          
+</form>
+</div>
+
+
